@@ -56,10 +56,12 @@ def download_hue():
   """
   Execute('{0} | xargs wget -O hue.tgz'.format(params.download_url))
   Execute('tar -zxvf hue.tgz -C {0} && rm -f hue.tgz'.format(params.hue_install_dir))
-  
+  Execute('mkdir -p {0}'.format(params.hue_dir))
   # Ensure all Hue files owned by hue
   Execute('chown -R {0}:{1} {2}'.format(params.hue_user,params.hue_group,params.hue_dir))
   Execute('ln -s {0} /usr/hdp/current/hue-server'.format(params.hue_dir))
+  Execute('rm -rf {0}/*'.format(params.hue_dir))
+  Execute('cd /usr/local/hue-4.2.0 && make install')
   Logger.info("Hue Service is installed")
 
 def add_hdfs_configuration(if_ranger=False, security_enabled=False):
@@ -85,9 +87,9 @@ def add_hdfs_configuration(if_ranger=False, security_enabled=False):
   if params.dfs_ha_enabled:
     services_configurations['core-site']['hadoop.proxyuser.httpfs.groups'] = '*'
     services_configurations['core-site']['hadoop.proxyuser.httpfs.hosts'] = '*'
-    services_configurations['httpfs-site'] = {}
-    services_configurations['httpfs-site']['httpfs.proxyuser.hue.groups'] = '*'
-    services_configurations['httpfs-site']['httpfs.proxyuser.hue.hosts'] = '*'
+    #services_configurations['httpfs-site'] = {}
+    #services_configurations['httpfs-site']['httpfs.proxyuser.hue.groups'] = '*'
+    #services_configurations['httpfs-site']['httpfs.proxyuser.hue.hosts'] = '*'
   if security_enabled:
     services_configurations['core-site']['hadoop.proxyuser.HTTP.groups'] = '*'
     services_configurations['core-site']['hadoop.proxyuser.HTTP.hosts'] = '*'
