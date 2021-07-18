@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sys, os, pwd, grp, signal, time
 from resource_management import *
 from subprocess import call

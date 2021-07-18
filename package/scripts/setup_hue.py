@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #!/usr/bin/env python
 import sys, os, pwd, grp, signal, time
 from resource_management import *
