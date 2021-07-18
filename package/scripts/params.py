@@ -232,7 +232,8 @@ HdfsResource = functools.partial(
 )
 
 # configurations of Yarn
-resourcemanager_hosts = default("/clusterHostInfo/rm_host", [])
+#resourcemanager_hosts = default("/clusterHostInfo/rm_host", [])
+resourcemanager_hosts = default("/clusterHostInfo/resourcemanager_hosts", [])
 resourcemanager_host = str(resourcemanager_hosts)
 resourcemanager_port = config['configurations']['yarn-site']['yarn.resourcemanager.address'].split(':')[-1]
 resourcemanager_ha_enabled = False
@@ -252,7 +253,8 @@ else:
   resourcemanager_webapp_address1 = config['configurations']['yarn-site']['yarn.resourcemanager.webapp.address']
   resourcemanager_api_url1 = format('http://{resourcemanager_webapp_address1}')
   proxy_api_url1 = resourcemanager_api_url1
-histroryserver_host = default("/clusterHostInfo/hs_host", [])
+# histroryserver_host = default("/clusterHostInfo/hs_host", [])
+histroryserver_host = default("/clusterHostInfo/historyserver_hosts", [])
 history_server_api_url = format('http://{histroryserver_host[0]}:19888')
 slave_hosts = default("/clusterHostInfo/slave_hosts", [])
 
