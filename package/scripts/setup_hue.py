@@ -27,13 +27,13 @@ def setup_hue():
   #Link("{0}/desktop/libs/hadoop/java-lib/*".format(params.hue_dir),to = "/usr/hdp/current/hadoop-client/lib")
   Execute('find {0} -iname "*.sh" | xargs chmod +x'.format(params.service_packagedir))
   # Create a home directory for solr user on HDFS
-  params.HdfsResource(params.hue_hdfs_home_dir,
-                type="directory",
-                action="create_on_execute",
-                owner=params.hue_user,
-                mode=0755,
-                recursive_chmod=True
-  )
+  # params.HdfsResource(params.hue_hdfs_home_dir,
+  #               type="directory",
+  #               action="create_on_execute",
+  #               owner=params.hue_user,
+  #               mode=0755,
+  #               recursive_chmod=True
+  # )
   Logger.info(format("Creating {hue_conf_dir}/log.conf file"))
   File(format("{hue_conf_dir}/log.conf"), 
     content = InlineTemplate(params.hue_log_content), 
