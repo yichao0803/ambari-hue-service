@@ -54,7 +54,7 @@ def download_hue():
   """
   Download Hue to the installation directory
   """
-  Execute('{0} | xargs wget -O hue.tgz'.format(params.download_url))
+  Execute('echo {0} | xargs wget -O hue.tgz'.format(params.download_url))
   Execute('tar -zxvf hue.tgz -C {0} && rm -f hue.tgz'.format(params.hue_install_dir))
   Execute('mkdir -p {0}'.format(params.hue_dir))
   # Ensure all Hue files owned by hue
