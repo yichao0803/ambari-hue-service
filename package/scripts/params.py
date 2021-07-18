@@ -30,7 +30,7 @@ tmp_dir = Script.get_tmp_dir()
 stack_root = Script.get_stack_root()
 # Hue download url
 # download_url = 'cat /etc/yum.repos.d/HDP.repo | grep "baseurl" | awk -F \'=\' \'{print $2"/hue/hue-4.2.0.tgz"}\''
-download_url='http://hdp121.kd.com/HDP/centos7/3.1.4.0-315/hue/hue-release-4.2.0.tar.gz'
+download_url='http://hdp121.kd.com/HDP/centos7/3.1.4.0-315/hue/hue-4.2.0.tar.gz'
 # New Cluster Stack Version that is defined during the RESTART of a Rolling Upgrade
 version = default("/commandParams/version", None)
 stack_name = default("/hostLevelParams/stack_name", None)
