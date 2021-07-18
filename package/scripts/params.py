@@ -246,6 +246,8 @@ if resourcemanager_ha_enabled:
   resourcemanager_webapp_address2 = config['configurations']['yarn-site']['yarn.resourcemanager.webapp.address.rm2']
   resourcemanager_api_url1 = format('http://{resourcemanager_webapp_address1}')
   resourcemanager_api_url2 = format('http://{resourcemanager_webapp_address2}')
+
+
   proxy_api_url1 = resourcemanager_api_url1
   proxy_api_url2 = resourcemanager_api_url2
 else:
