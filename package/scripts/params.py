@@ -38,7 +38,12 @@ stack_name = default("/hostLevelParams/stack_name", None)
 #e.g. /var/lib/ambari-agent/cache/stacks/HDP/$VERSION/services/HUE/package
 service_packagedir = os.path.realpath(__file__).split('/scripts')[0]
 cluster_name = str(config['clusterName'])
-ambari_server_hostname = config['clusterHostInfo']['ambari_server_host'][0]
+# ambari_server_hostname = config['clusterHostInfo']['ambari_server_host'][0]
+ambari_server_hostname = 'hdp121.kd.com'
+
+print("clusterHostInfo")
+print(config['clusterHostInfo'])
+
 
 #hue_apps = ['security','pig','filebrowser','jobbrowser','zookeeper','search','rdbms','metastore','spark','beeswax','jobsub','hbase','oozie','indexer']
 hue_hdfs_module_enabled = config['configurations']['hue-env']['hue-hdfs-module-enabled']
