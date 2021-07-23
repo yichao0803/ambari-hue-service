@@ -31,7 +31,7 @@ tmp_dir = Script.get_tmp_dir()
 stack_root = Script.get_stack_root()
 # Hue download url
 # download_url = 'cat /etc/yum.repos.d/HDP.repo | grep "baseurl" | awk -F \'=\' \'{print $2"/hue/hue-4.2.0.tgz"}\''
-download_url='http://hdp121.kd.com/HDP/centos7/3.1.4.0-315/hue/hue-4.2.0.tar.gz'
+download_url='http://192.168.122.8/HDP/3.1.4/HDP/centos7/3.1.4.0-315/hue/hue-4.2.0.tar.gz'
 # New Cluster Stack Version that is defined during the RESTART of a Rolling Upgrade
 version = default("/commandParams/version", None)
 stack_name = default("/hostLevelParams/stack_name", None)
@@ -39,7 +39,7 @@ stack_name = default("/hostLevelParams/stack_name", None)
 service_packagedir = os.path.realpath(__file__).split('/scripts')[0]
 cluster_name = str(config['clusterName'])
 # ambari_server_hostname = config['clusterHostInfo']['ambari_server_host'][0]
-ambari_server_hostname = 'hdp121.kd.com'
+ambari_server_hostname = 'vm8-137'
 
 print("clusterHostInfo")
 print(config['clusterHostInfo'])
@@ -190,8 +190,10 @@ if dfs_ha_enabled:
   hdfs_httpfs_host = config['configurations']['hue-hadoop-site']['hdfs_httpfs_host']
   # if kerberos is disabled, using HttpFS . Otherwise using WebHDFS.
   if hdfs_httpfs_host in namenode_host and not security_enabled:
-    webhdfs_url = format('http://' + hdfs_httpfs_host + ':14000/webhdfs/v1')
+    print("hdfs_httpfs_host in namenode_host and not security_enabled: true")
+    webhdfs_url = format('http://' + hdfs_httpfs_host + ':50070/webhdfs/v1')
   else:
+    print("hdfs_httpfs_host in namenode_host and not security_enabled: false")
     webhdfs_url = format('http://' + hdfs_httpfs_host + ':50070/webhdfs/v1')
 else:
   dfs_namenode_http_address = config['configurations']['hdfs-site']['dfs.namenode.http-address']
