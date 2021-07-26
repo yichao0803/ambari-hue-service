@@ -25,6 +25,16 @@ SERVER_ROLE_DIRECTORY_MAP = {
   'HUE_SERVER' : 'hue-server',
 }
 
+def dictPrint(p_key,d):
+  for k, v in d.iteritems():
+    if isinstance(v, dict):
+      dictPrint(k,v)
+    else:
+      if p_key:
+        print("{0}:{1}".format(str(p_key)+"$"+str(k), v))
+      else:
+        print("{0}:{1}".format(str(k), v))
+
 component_directory = Script.get_component_from_role(SERVER_ROLE_DIRECTORY_MAP, "HUE_SERVER")
 config = Script.get_config()
 tmp_dir = Script.get_tmp_dir()
@@ -32,6 +42,7 @@ stack_root = Script.get_stack_root()
 # Hue download url
 # download_url = 'cat /etc/yum.repos.d/HDP.repo | grep "baseurl" | awk -F \'=\' \'{print $2"/hue/hue-4.2.0.tgz"}\''
 download_url='http://192.168.122.8/HDP/3.1.4/HDP/centos7/3.1.4.0-315/hue/hue-4.2.0.tar.gz'
+# download_url='http://192.168.12.121/HDP/3.1.4/HDP/centos7/3.1.4.0-315/hue/hue-4.2.0.tar.gz'
 # New Cluster Stack Version that is defined during the RESTART of a Rolling Upgrade
 version = default("/commandParams/version", None)
 stack_name = default("/hostLevelParams/stack_name", None)
@@ -40,9 +51,18 @@ service_packagedir = os.path.realpath(__file__).split('/scripts')[0]
 cluster_name = str(config['clusterName'])
 # ambari_server_hostname = config['clusterHostInfo']['ambari_server_host'][0]
 ambari_server_hostname = 'vm8-137'
+# ambari_server_hostname = 'hdp121'
 
-print("clusterHostInfo")
-print(config['clusterHostInfo'])
+#print("clusterHostInfo")
+#print(config['clusterHostInfo'])
+#print("script_config")
+#print(config)
+
+print("-----------------------script_config-------------------------------")
+dictPrint("",config)
+print("-----------------------script_config-------------------------------")
+print("ambariLevelParams.java_home")
+print(config['ambariLevelParams']['java_home'])
 
 
 #hue_apps = ['security','pig','filebrowser','jobbrowser','zookeeper','search','rdbms','metastore','spark','beeswax','jobsub','hbase','oozie','indexer']
@@ -91,8 +111,8 @@ if hue_spark_module_enabled == 'No':
 app_blacklists = list(set(app_blacklists))
 app_blacklist = ','.join(app_blacklists)
 
-java_home = config['hostLevelParams']['java_home']
-http_host = config['hostname']
+java_home = config['ambariLevelParams']['java_home']
+http_host = config['agentLevelParams']['hostname']
 http_port = config['configurations']['hue-env']['http_port']
 hue_pid_dir = config['configurations']['hue-env']['hue_pid_dir']
 hue_log_dir = config['configurations']['hue-env']['hue_log_dir']
